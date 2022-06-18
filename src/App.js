@@ -3,6 +3,9 @@ import './App.css';
 import BoatsApi from './boatdApi';
 import { useState } from 'react';
 import NewExpence from './components/NewExpence';
+import UncontrolledExapleled from './components/controlled/uncontrolledExample';
+import KeysDemo from './components/keys/keysDemo';
+import DynamicStyleDemo from './components/dynamicstyle/DynamicStyleDemo'
 
 function App() {
 
@@ -14,13 +17,20 @@ function App() {
 
   const updateExpenceData = (expence) => {
       console.log("test", expence);
-      expences.push(expence);
+     // expences.push(expence);
 
       setExpences([...expences, expence])
   }
 
   return (
     <div className="App">
+      <DynamicStyleDemo />
+      <hr />
+      <h2>Keys Demo</h2>
+      <KeysDemo />
+      <hr/>
+      <UncontrolledExapleled />
+      <hr/>
       <BoatsApi />
       <NewExpence updateExpenceData = {updateExpenceData} />
       <hr />
