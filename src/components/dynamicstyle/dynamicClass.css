@@ -1,0 +1,6 @@
+.form-controls{
+    border-color: blue;
+}
+.form-control.invlid{
+    border-color: red;
+}
