@@ -4,6 +4,25 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from 'react-router-dom';
+import store from "./store/store";
+import * as actionType from "./store/actionType";
+
+console.log(store);
+store.subscribe(() => {
+  console.log("store state change");
+})
+
+store.dispatch({
+  type: actionType.ADD_BOT, 
+  payload: {name: "Facebook bot"},
+});
+console.log(store.getState());
+store.dispatch({
+  type: actionType.DELETE_BOT, 
+  payload: {id: 1},
+});
+
+console.log(store.getState());
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

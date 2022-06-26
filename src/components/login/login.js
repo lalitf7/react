@@ -1,43 +1,74 @@
-import { useState, useEffect } from "react"
+import {useEffect, useState} from 'react';
 
-const Login = () => {
-    const [email, setEmail] = useState(null);
-    const [password, setPassword] = useState(null);
-    const [emailValid, setEmailValid] = useState(true);
-    const [passwordValid, setPasswordValid] = useState(true);
-    const [formValid, setFormValid] = useState(false);
-    
+import { useLocation, useNavigate } from 'react-router-dom';
 
-    useEffect(() =>{
-        if(email !== null || password !== null){
-            
-            const testEmail = email && email.includes("@") ;
-            setEmailValid(testEmail);
-            console.log("testEmail" + testEmail);
-            const testPassword = password && password.length > 4;
-            setPasswordValid(testPassword);
+import {useForm} from 'react-hook-form';
 
-            let valid = false;
-            if(emailValid && passwordValid){
-                valid = true;
-            }
-            setFormValid(valid)
-        }
-        
-    }, [email, password])
-
-    const emilHandler = (event) => {
-        setEmail(event.target.value)
+const login = () => {
+    let user = localStorage.getItem("user");
+    if(user){
+        user = JSON.parse(user);
+      //  setLoggedIn(true);
+    } else{
+        let user = {userId:1, username:"lalit"};
+        localStorage.setItem("user", JSON.stringify(user));
     }
-    const passwordHandler = (event) => {
-        setPassword(event.target.value)
+}
+
+function Login () {
+    const [email, setEmail] = useState();
+    const [loggedIn, setLoggedIn] = useState()
+
+    const location = useLocation();
+
+    const navigate = useNavigate();
+
+    useEffect(()=> {
+      //  console.log(JSON.stringify(location)) OR
+        console.log(JSON.stringify(location.search))
+    })
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+      } = useForm();
+    const emailHandler =(event) => {
+        setEmail(event.target.value);
+        setTimeout(() => {
+            console.log(`email ${email}`)
+        }, 2000);
+        
+    }
+
+    useEffect(() => {
+        console.log(`email2 ${email}`)
+    }, [email])
+
+    const submitForm = () => {
+        console.log("call");
+        navigate("/");
     }
     return (
-        <>
-        <div>Form is {formValid} </div>
-            <div><input type="text" onChange={emilHandler} style={{borderColor: email === null ? "" : "red"}} /></div>
-            <div><input type="password" onChange={passwordHandler} style={{borderColor: password === null ? "" : "red"}}/></div>
-            <div><input type="submit" /></div>
+        <>  
+        <h2>Call usestate to avoid not calling</h2>
+            <form onSubmit={submitForm}>
+            <input 
+                type="text" 
+                onChange={emailHandler} 
+                {...register("email", {
+                   
+                }
+                    
+                )}
+                
+            />
+
+            {errors.email && <p>Email is required.</p>}
+            <button>Login</button>
+            </form>
+            
+            
+
         </>
     )
 }

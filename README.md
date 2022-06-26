@@ -75,3 +75,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 git checkout -b NEW-BRANCH-NAME
 git add -A
 npm install react-router-dom
+react-hook-form
+formik
+kaska
+npm install redux@4.0
